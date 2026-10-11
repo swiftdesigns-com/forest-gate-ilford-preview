@@ -18,8 +18,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--lit));z-index:200}
 
 /* NAV */
-.nav{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px max(20px,calc((100% - 1180px)/2));transition:background .4s,padding .4s,backdrop-filter .4s;color:#fff}
-.nav.solid{background:rgba(8,13,32,.78);backdrop-filter:blur(14px);padding-block:12px;box-shadow:0 1px 0 rgba(255,255,255,.07)}
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px max(20px,calc((100% - 1180px)/2));transition:padding .4s;color:#fff}
+.nav::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(8,13,32,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.07);opacity:0;transition:opacity .4s}
+.nav.solid{padding-block:12px}
+.nav.solid::before{opacity:1}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:.95rem;letter-spacing:.02em}
 .brand b{font-weight:700;color:var(--gold2)}
 .brand-rose{width:30px;height:30px;color:var(--gold);animation:spin 40s linear infinite}
@@ -254,8 +256,8 @@ h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,5.4vw,4.2rem)
 /* RESPONSIVE */
 @media (max-width:980px){
   .burger{display:block}
-  .nav-links{position:fixed;inset:0;background:var(--night);flex-direction:column;justify-content:center;gap:26px;transform:translateY(-100%);transition:transform .6s var(--ease);z-index:110}
-  .nav-links.open{transform:none}
+  .nav-links{position:fixed;inset:0;background:var(--night);flex-direction:column;justify-content:center;gap:26px;transform:translateY(-100%);visibility:hidden;transition:transform .6s var(--ease),visibility 0s .6s;z-index:110}
+  .nav-links.open{transform:none;visibility:visible;transition:transform .6s var(--ease),visibility 0s}
   .nav-links a{font-family:var(--serif);font-size:2.4rem;opacity:1}
   .nav-cta{font-size:1.4rem!important;padding:12px 30px}
   .rose-wrap{right:-45vw;width:130vw;top:30%;opacity:.38}
