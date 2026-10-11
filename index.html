@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Polska Misja Katolicka Forest Gate/Ilford i Waltham Cross</title>
+<meta name="description" content="Polska wspólnota katolicka we wschodnim Londynie. Msze święte po polsku w Ilford, Waltham Cross i Southend-on-Sea, sakramenty, ministranci, zespoły.">
+<meta name="theme-color" content="#0a0f24">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Strona główna">
+    <svg viewBox="-12 -12 24 24" class="brand-rose" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".9"><circle r="10"/><circle r="3"/><path d="M0-10V10M-10 0H10M-7-7L7 7M7-7L-7 7"/></g></svg>
+    <span>PMK <b>Ilford</b> &amp; Waltham Cross</span>
+  </a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#msze">Msze</a>
+    <a href="#wspolnoty">Wspólnoty</a>
+    <a href="#sakramenty">Sakramenty</a>
+    <a href="#aktualnosci">Aktualności</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#kontakt" class="nav-cta">Kontakt</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-sky"></div>
+  <div class="beams" aria-hidden="true"></div>
+  <div class="rose-wrap" id="roseWrap" aria-hidden="true"><svg id="rose" viewBox="-100 -100 200 200"></svg></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <p class="eyebrow" data-hero>Polska Misja Katolicka · wschodni Londyn</p>
+    <h1 class="hero-title">
+      <span class="line"><span data-hero>Tu możesz</span></span>
+      <span class="line"><span data-hero>być <em>u siebie.</em></span></span>
+    </h1>
+    <p class="hero-sub" data-hero>Polska wspólnota katolicka w Ilford, Waltham Cross i Southend&#8209;on&#8209;Sea. Msza po polsku, sakramenty, dzieci, muzyka i ludzie, którzy czekają, żeby Cię powitać.</p>
+    <div class="hero-cta" data-hero>
+      <a href="#msze" class="btn btn-gold">Zobacz godziny Mszy</a>
+      <a href="#kontakt" class="btn btn-ghost">Jak do nas trafić</a>
+    </div>
+  </div>
+
+  <aside class="next-mass" id="nextMass" data-hero aria-live="polite">
+    <div class="nm-top"><span class="pulse"></span><span id="nmLabel">Najbliższa Msza święta</span></div>
+    <div class="nm-time" id="nmTime">—</div>
+    <div class="nm-when" id="nmWhen">&nbsp;</div>
+    <div class="nm-place" id="nmPlace">&nbsp;</div>
+    <a class="nm-link" id="nmLink" href="#msze" target="_blank" rel="noopener">Nawiguj <span>→</span></a>
+  </aside>
+
+  <div class="season" id="season" title="Kolor liturgiczny dzisiejszego dnia"><i></i><span id="seasonText"></span></div>
+  <a href="#msze" class="scroll-hint" aria-label="Przewiń w dół"><i></i></a>
+</section>
+
+<!-- FACTS -->
+<section class="facts">
+  <div class="wrap facts-grid">
+    <div class="fact reveal"><b data-count="3">0</b><span>kościoły, w których<br>sprawujemy Mszę po polsku</span></div>
+    <div class="fact reveal"><b data-count="8" id="massCount">0</b><span>Mszy świętych<br>w każdym tygodniu</span></div>
+    <div class="fact reveal"><b data-count="75">0</b><span>lat polskiej wspólnoty<br>w Waltham Cross</span></div>
+    <div class="fact reveal"><b data-count="30">0</b><span>minut przed każdą Mszą<br>spowiedź święta</span></div>
+  </div>
+</section>
+
+<!-- MSZE -->
+<section class="sec masses" id="msze">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">Msze święte i nabożeństwa</p>
+      <h2>Kiedy i gdzie się spotkamy</h2>
+      <p class="lead">Wybierz dzień tygodnia. Pokażemy Ci Mszę, adres i trasę. Jednym kliknięciem dodasz ją do kalendarza w telefonie.</p>
+    </header>
+
+    <div class="days reveal" id="days" role="tablist" aria-label="Dzień tygodnia"></div>
+    <div class="day-panel" id="dayPanel" aria-live="polite"></div>
+
+    <div class="notes reveal">
+      <div class="note"><i>✝</i><div><b>Spowiedź święta</b><span>pół godziny przed każdą Mszą lub po umówieniu z księdzem</span></div></div>
+      <div class="note"><i>💧</i><div><b>Chrzty</b><span>Waltham Cross: pierwsza sobota miesiąca, 14:00. Ilford: pierwsza niedziela, na Mszy o 13:00</span></div></div>
+      <div class="note"><i>♪</i><div><b>Zespół EDN</b><span>śpiewa w każdą pierwszą niedzielę miesiąca na Mszy o 13:00 w Ilford</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFEST -->
+<section class="manifest">
+  <div class="wrap">
+    <p class="scrub" id="scrub">Duszpasterstwo Polskie we wschodnim Londynie to żywy i barwny organizm, który współtworzą ludzie i różnorodne grupy. Przyjdź jak jesteś. Zostań na dłużej.</p>
+  </div>
+</section>
+
+<!-- WSPÓLNOTY / KOŚCIOŁY -->
+<section class="sec places" id="wspolnoty">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">Nasze wspólnoty</p>
+      <h2>Trzy miejsca, jedna rodzina</h2>
+    </header>
+    <div class="arches">
+      <article class="arch reveal tilt">
+        <div class="arch-img"><img src="assets/dom.webp" alt="Dom Parafialny w Ilford" loading="lazy" data-speed="0.06"></div>
+        <h3>Forest Gate / Ilford</h3>
+        <p class="church">St. Cedd's Church</p>
+        <p>High Road, Ilford IG3 8SH</p>
+        <p class="small">Dom Parafialny: 2 Ashgrove Road, IG3 9XE</p>
+        <a class="link" href="https://www.google.com/maps/search/?api=1&query=St+Cedd%27s+Church+High+Road+Ilford+IG3+8SH" target="_blank" rel="noopener">Nawiguj →</a>
+      </article>
+      <article class="arch reveal tilt" style="--d:.12s">
+        <div class="arch-img"><img src="assets/altar-wc.webp" alt="Ołtarz kościoła w Waltham Cross" loading="lazy" data-speed="0.06"></div>
+        <h3>Waltham Cross</h3>
+        <p class="church">Our Lady of the Immaculate Conception &amp; St Joseph</p>
+        <p>204 High Street, EN8 7DP</p>
+        <p class="small">Polska wspólnota od 75 lat. Rada parafialna, ministranci, zespół i Polska Szkoła.</p>
+        <a class="link" href="https://www.google.com/maps/search/?api=1&query=204+High+Street+Waltham+Cross+EN8+7DP" target="_blank" rel="noopener">Nawiguj →</a>
+      </article>
+      <article class="arch reveal tilt" style="--d:.24s">
+        <div class="arch-img arch-img--art"><img src="assets/altar-flags.webp" alt="Ołtarz z polskimi flagami" loading="lazy" data-speed="0.06"></div>
+        <h3>Southend&#8209;on&#8209;Sea</h3>
+        <p class="church">Sacred Heart Church</p>
+        <p>418 Southchurch Road, SS1 2QB</p>
+        <p class="small">Msza po polsku w każdą niedzielę o 18:00.</p>
+        <a class="link" href="https://www.google.com/maps/search/?api=1&query=418+Southchurch+Rd+Southend+on+Sea+SS1+2QB" target="_blank" rel="noopener">Nawiguj →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SAKRAMENTY -->
+<section class="sec sacr" id="sakramenty">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">Sakramenty</p>
+      <h2>Ważne chwile życia, razem z Kościołem</h2>
+      <p class="lead">Wybierz sakrament. Zobaczysz najważniejsze informacje i to, co trzeba załatwić w kancelarii.</p>
+    </header>
+    <div class="sacr-grid reveal">
+      <div class="sacr-tabs" id="sacrTabs" role="tablist"></div>
+      <div class="sacr-panel" id="sacrPanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GRUPY -->
+<section class="sec groups" id="grupy">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">Życie wspólnoty</p>
+      <h2>Znajdź swoje miejsce</h2>
+    </header>
+  </div>
+  <div class="rail" id="rail">
+    <article class="gcard"><img src="assets/p317.webp" alt="Ministranci" loading="lazy"><div><h3>Ministranci</h3><p>Kilkudziesięciu chłopców i dziewcząt. Wycieczki, turnieje i służba przy ołtarzu. Przyjdź do zakrystii i zapisz się.</p></div></article>
+    <article class="gcard"><img src="assets/p278.webp" alt="Różaniec" loading="lazy"><div><h3>Żywy Różaniec</h3><p>Dwadzieścia osób, dwadzieścia tajemnic, jedna wspólna modlitwa. Każdy odmawia swoją dziesiątkę, kiedy mu wygodnie.</p></div></article>
+    <article class="gcard"><img src="assets/p285.webp" alt="Zespół EDN" loading="lazy"><div><h3>Zespół EDN</h3><p>Ekspres.Do.Nieba. Śpiewa w każdą pierwszą niedzielę miesiąca. Szukamy głosów i instrumentów, kontakt po Mszy.</p></div></article>
+    <article class="gcard"><img src="assets/p284.webp" alt="Klawisze" loading="lazy" style="object-position:50% 20%"><div><h3>Zespół Nutki</h3><p>Dziecięcy zespół muzyczny z Waltham Cross. Nowi członkowie są zawsze mile widziani.</p></div></article>
+    <article class="gcard"><img src="assets/p277.webp" alt="Dzieci i młodzież" loading="lazy"><div><h3>Dzieci i młodzież</h3><p>Dzień Dziecka, bal przebierańców, bal wszystkich świętych i turnieje. Parafia ma też swoje święta dla najmłodszych.</p></div></article>
+  </div>
+</section>
+
+<!-- FACEBOOK / AKTUALNOŚCI -->
+<section class="sec news" id="aktualnosci">
+  <div class="wrap news-grid">
+    <div class="news-copy reveal">
+      <p class="kicker">Aktualności</p>
+      <h2>Co u nas słychać</h2>
+      <p class="lead">Ogłoszenia, zdjęcia z wydarzeń i zaproszenia publikujemy na naszym profilu na Facebooku. Tu widzisz je na bieżąco.</p>
+      <a class="btn btn-gold" href="https://www.facebook.com/PMKForesrgateIlfordWalthamCross" target="_blank" rel="noopener">Otwórz profil na Facebooku</a>
+      <p class="small muted">Nie masz Facebooka? Ogłoszenia czytamy też podczas każdej niedzielnej Mszy.</p>
+    </div>
+    <div class="phone reveal" style="--d:.15s">
+      <div class="phone-bar"><i></i></div>
+      <div class="phone-screen" id="fbBox">
+        <div class="fb-skel">Ładowanie postów…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="sec gallery" id="galeria">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="kicker">Galeria</p>
+      <h2>Chwile, które razem przeżyliśmy</h2>
+    </header>
+    <div class="masonry" id="masonry"></div>
+  </div>
+</section>
+
+<!-- OFIARY -->
+<section class="sec give" id="ofiary">
+  <div class="wrap give-grid">
+    <div class="reveal">
+      <p class="kicker">Wsparcie parafii</p>
+      <h2>Bóg zapłać</h2>
+      <p class="lead">Dziękujemy za każdą ofiarę na potrzeby naszych wspólnot. Dane do przelewu skopiujesz jednym kliknięciem.</p>
+    </div>
+    <div class="accounts reveal" style="--d:.1s">
+      <div class="acc">
+        <h3>PCM Forest Gate</h3>
+        <dl><dt>Sort code</dt><dd><button data-copy="30-94-57">30-94-57 <u>kopiuj</u></button></dd><dt>Numer konta</dt><dd><button data-copy="00618620">00618620 <u>kopiuj</u></button></dd></dl>
+      </div>
+      <div class="acc">
+        <h3>PCM Waltham Cross</h3>
+        <dl><dt>Sort code</dt><dd><button data-copy="30-94-57">30-94-57 <u>kopiuj</u></button></dd><dt>Numer konta</dt><dd><button data-copy="00623950">00623950 <u>kopiuj</u></button></dd></dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="sec contact" id="kontakt">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <p class="kicker">Kontakt</p>
+      <h2>Zapraszamy do rozmowy</h2>
+      <ul class="clist">
+        <li><span>Telefon</span><a href="tel:+442085991445">020 8599 1445</a></li>
+        <li><span>Komórka</span><a href="tel:+447539543051">07539 543 051</a></li>
+        <li><span>E-mail</span><a href="mailto:ilford@pcmew.org">ilford@pcmew.org</a></li>
+        <li><span>Dom Parafialny</span><em>2 Ashgrove Road, Ilford, Goodmayes, IG3 9XE</em></li>
+        <li><span>Kancelaria</span><em>po indywidualnym telefonicznym umówieniu (Waltham Cross, Ilford, Southend)</em></li>
+      </ul>
+    </div>
+    <div class="mapbox reveal" style="--d:.12s">
+      <div class="map-tabs" id="mapTabs"></div>
+      <iframe id="mapFrame" title="Mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="foot-quote">„Króluj nam, Chryste, zawsze i wszędzie."</p>
+    <p class="small">© <span id="year"></span> Polska Misja Katolicka Forest Gate/Ilford oraz Waltham Cross</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" hidden>
+  <button class="lb-x" aria-label="Zamknij">×</button>
+  <button class="lb-n lb-prev" aria-label="Poprzednie">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-n lb-next" aria-label="Następne">›</button>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="main.js"></script>
+</body>
+</html>
