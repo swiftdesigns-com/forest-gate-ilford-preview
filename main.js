@@ -163,11 +163,12 @@ $('#massCount').dataset.count = MASSES.length;
     }).join('');
     return `<article class="pcol" style="animation-delay:${i * 90}ms"><div class="pcol-head"><h3>${p.city}</h3><p class="church">${p.church}</p><p class="addr">${p.addr}</p></div><ul class="sched">${rows}</ul><a class="chip" href="${mapsLink(k)}" target="_blank" rel="noopener">Nawiguj</a></article>`;
   }).join('');
-  seg.addEventListener('click', e => {
-    const b = e.target.closest('button'); if (!b) return;
-    $$('button', seg).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
-    const v = b.dataset.view; cal.hidden = v !== 'cal'; pl.hidden = v !== 'places';
-  });
+  const setView = v => {
+    $$('button', seg).forEach(x => { const on = x.dataset.view === v; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
+    cal.hidden = v !== 'cal'; pl.hidden = v !== 'places';
+  };
+  seg.addEventListener('click', e => { const b = e.target.closest('button'); if (b) setView(b.dataset.view); });
+  $('#nextMass .nm-link')?.addEventListener('click', () => setView('cal'));
 })();
 
 /* ---------- AKTUALNOŚCI (data/aktualnosci.json) ---------- */
@@ -202,7 +203,7 @@ $('#massCount').dataset.count = MASSES.length;
       <h3>${esc(e.tytul)}</h3>
       <p class="${long ? 'clamp' : ''}">${esc(e.tekst)}</p>${long ? '<button class="nmore">Czytaj więcej</button>' : ''}
       ${meta ? `<div class="nmeta">${meta}</div>` : ''}
-      ${e.autor ? `<p class="nsign">— ${esc(e.autor)}</p>` : ''}</div></article>`;
+      ${e.autor ? `<p class="nsign">${esc(e.autor)}</p>` : ''}</div></article>`;
   }
   function dateText(e) {
     if (!e.dataOd) return '';

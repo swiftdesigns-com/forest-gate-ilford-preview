@@ -89,7 +89,6 @@
       <header class="reveal">
         <p class="kicker">Aktualności</p>
         <h2>Co u nas słychać</h2>
-        <p class="lead">Ogłoszenia na ten tydzień i najbliższe wydarzenia. Wpisy znikają same, gdy minie ich termin.</p>
       </header>
       <div class="news-wrap" id="newsWrap">
         <div class="news-scroll" id="newsScroll" tabindex="0" aria-label="Lista aktualności">
@@ -99,8 +98,6 @@
         </div>
         <p class="news-more" id="newsMore" hidden>Przewiń w dół, aby zobaczyć kolejne wpisy</p>
       </div>
-      <a class="btn btn-gold news-fb" href="https://www.facebook.com/PMKForesrgateIlfordWalthamCross" target="_blank" rel="noopener">Otwórz profil na Facebooku</a>
-      <p class="small muted">Nie masz Facebooka? Ogłoszenia czytamy też podczas każdej niedzielnej Mszy.</p>
     </div>
     <div class="phone-col reveal" style="--d:.15s">
       <div class="phone">
@@ -123,19 +120,19 @@
     <header class="sec-head reveal">
       <p class="kicker">Msze święte i nabożeństwa</p>
       <h2>Kiedy i gdzie się spotkamy</h2>
-      <p class="lead">Wybierz widok: kalendarz tygodnia albo podział na wspólnoty. Jednym kliknięciem dodasz Mszę do kalendarza w telefonie.</p>
+      <p class="lead">Wybierz widok: podział na wspólnoty albo kalendarz tygodnia.</p>
     </header>
 
     <div class="seg reveal" id="viewSeg" role="tablist" aria-label="Widok Mszy">
-      <button class="on" role="tab" aria-selected="true" data-view="cal">Kalendarz</button>
-      <button role="tab" aria-selected="false" data-view="places">Wspólnoty</button>
+      <button class="on" role="tab" aria-selected="true" data-view="places">Wspólnoty</button>
+      <button role="tab" aria-selected="false" data-view="cal">Kalendarz</button>
     </div>
 
-    <div id="viewCal">
+    <div id="viewCal" hidden>
       <div class="days reveal" id="days" role="tablist" aria-label="Dzień tygodnia"></div>
       <div class="day-panel" id="dayPanel" aria-live="polite"></div>
     </div>
-    <div id="viewPlaces" hidden>
+    <div id="viewPlaces">
       <div class="pcols" id="pcols"></div>
     </div>
 
@@ -225,12 +222,12 @@
     <div class="reveal">
       <p class="kicker">Wsparcie parafii</p>
       <h2>Bóg zapłać</h2>
-      <p class="lead">Dziękujemy za każdą ofiarę na potrzeby naszych wspólnot. Dane do przelewu skopiujesz jednym kliknięciem.</p>
+      <p class="lead">Dziękujemy za każdą ofiarę na potrzeby naszych wspólnot.</p>
     </div>
     <div class="accounts reveal" style="--d:.1s">
       <div class="acc">
         <h3>PCM Forest Gate</h3>
-        <dl><dt>Sort code</dt><dd><button data-copy="30-94-57">30-94-57 <u>kopiuj</u></button></dd><dt>Numer konta</dt><dd><button data-copy="00618620">00618620 <u>kopiuj</u></button></dd></dl>
+        <dl><dt>Sort code</dt><dd><button data-copy="30-94-57">30-94-57</button></dd><dt>Numer konta</dt><dd><button data-copy="00618620">00618620</button></dd></dl>
       </div>
     </div>
   </div>
@@ -262,6 +259,7 @@
   <div class="wrap">
     <p class="foot-quote">„Króluj nam, Chryste, zawsze i wszędzie."</p>
     <p class="small">© <span id="year"></span> Polska Misja Katolicka Forest Gate/Ilford oraz Waltham Cross</p>
+    <p class="small foot-credit"><a href="https://www.swiftdesigns.co.uk/" target="_blank" rel="noopener">Designed and made by Swift Designs</a></p>
   </div>
 </footer>
 

@@ -288,7 +288,10 @@ h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,5.4vw,4.2rem)
 .acc dl{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;align-items:center}
 .acc dt{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .acc dd button{font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.04em}
-.acc u{font-weight:600;font-size:.78rem;color:var(--golddk);margin-left:8px;text-decoration:none;border:1px solid #e3d3a8;border-radius:99px;padding:2px 9px}
+.acc dd button:hover{color:var(--golddk)}
+.foot-credit{margin-top:6px}
+.foot-credit a{text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.foot-credit a:hover{color:var(--golddk);border-color:currentColor}
 
 /* CONTACT */
 .contact{background:var(--paper)}
