@@ -47,18 +47,26 @@
     </h1>
     <p class="hero-sub" data-hero>Polska wspólnota katolicka w Ilford, Waltham Cross i Southend&#8209;on&#8209;Sea. Msza po polsku, sakramenty, dzieci, muzyka i ludzie, którzy czekają, żeby Cię powitać.</p>
     <div class="hero-cta" data-hero>
+      <a href="#aktualnosci" class="btn btn-soft">Aktualności</a>
       <a href="#msze" class="btn btn-gold">Zobacz godziny Mszy</a>
       <a href="#kontakt" class="btn btn-ghost">Jak do nas trafić</a>
     </div>
   </div>
 
-  <aside class="next-mass" id="nextMass" data-hero aria-live="polite">
-    <div class="nm-top"><span class="pulse"></span><span id="nmLabel">Najbliższa Msza święta</span></div>
-    <div class="nm-time" id="nmTime">—</div>
-    <div class="nm-when" id="nmWhen">&nbsp;</div>
-    <div class="nm-place" id="nmPlace">&nbsp;</div>
-    <a class="nm-link" id="nmLink" href="#msze" target="_blank" rel="noopener">Nawiguj <span>→</span></a>
-  </aside>
+  <div class="hero-side">
+    <aside class="next-mass" id="nextMass" data-hero aria-live="polite">
+      <div class="nm-top"><span class="pulse"></span><span id="nmLabel">Najbliższa Msza święta</span></div>
+      <div class="nm-time" id="nmTime">—</div>
+      <div class="nm-when" id="nmWhen">&nbsp;</div>
+      <div class="nm-place" id="nmPlace">&nbsp;</div>
+      <a class="nm-link" href="#msze">Zobacz kalendarz Mszy <span>→</span></a>
+    </aside>
+    <aside class="hero-news" id="heroNews" data-hero>
+      <div class="nm-top"><span class="hn-dot"></span><span>Aktualności</span></div>
+      <div class="hn-body" id="hnBody"><p class="hn-text">Ładowanie…</p></div>
+      <a class="nm-link" href="#aktualnosci">Zobacz aktualności <span>→</span></a>
+    </aside>
+  </div>
 
   <div class="season" id="season" title="Kolor liturgiczny dzisiejszego dnia"><i></i><span id="seasonText"></span></div>
   <a href="#aktualnosci" class="scroll-hint" aria-label="Przewiń w dół"><i></i></a>
@@ -169,7 +177,6 @@
   <div class="rail" id="rail">
     <article class="gcard"><img src="assets/p317.webp" alt="Ministranci" loading="lazy"><div><h3>Ministranci</h3><p>Kilkudziesięciu chłopców i dziewcząt. Wycieczki, turnieje i służba przy ołtarzu. Przyjdź do zakrystii i zapisz się.</p></div></article>
     <article class="gcard"><img src="assets/p278.webp" alt="Różaniec" loading="lazy"><div><h3>Żywy Różaniec</h3><p>Dwadzieścia osób, dwadzieścia tajemnic, jedna wspólna modlitwa. Każdy odmawia swoją dziesiątkę, kiedy mu wygodnie.</p></div></article>
-    <article class="gcard"><img src="assets/p285.webp" alt="Zespół EDN" loading="lazy"><div><h3>Zespół EDN</h3><p>Ekspres.Do.Nieba. Śpiewa w każdą pierwszą niedzielę miesiąca. Szukamy głosów i instrumentów, kontakt po Mszy.</p></div></article>
     <article class="gcard"><img src="assets/p284.webp" alt="Klawisze" loading="lazy" style="object-position:50% 20%"><div><h3>Zespół Nutki</h3><p>Dziecięcy zespół muzyczny z Waltham Cross. Nowi członkowie są zawsze mile widziani.</p></div></article>
     <article class="gcard"><img src="assets/p277.webp" alt="Dzieci i młodzież" loading="lazy"><div><h3>Dzieci i młodzież</h3><p>Dzień Dziecka, bal przebierańców, bal wszystkich świętych i turnieje. Parafia ma też swoje święta dla najmłodszych.</p></div></article>
   </div>
@@ -225,8 +232,8 @@
       <p class="kicker">Kontakt</p>
       <h2>Zapraszamy do rozmowy</h2>
       <ul class="clist">
-        <li><span>Telefon</span><a href="tel:+442085991445">020 8599 1445</a></li>
-        <li><span>Komórka</span><a href="tel:+447539543051">07539 543 051</a></li>
+        <li><span>Telefon</span><strong class="ph">020 8599 1445</strong></li>
+        <li><span>Komórka</span><strong class="ph">07539 543 051</strong></li>
         <li><span>E-mail</span><a href="mailto:ilford@pcmew.org">ilford@pcmew.org</a></li>
         <li><span>Dom Parafialny</span><em>2 Ashgrove Road, Ilford, Goodmayes, IG3 9XE</em></li>
         <li><span>Kancelaria</span><em>po indywidualnym telefonicznym umówieniu (Waltham Cross, Ilford, Southend)</em></li>

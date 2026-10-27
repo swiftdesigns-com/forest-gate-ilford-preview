@@ -11,13 +11,14 @@ const PLACES = {
 };
 // d: 0 = niedziela ... 6 = sobota (jak w JS Date)
 const MASSES = [
-  { d: 0, t: '09:45', p: 'wc' }, { d: 0, t: '13:00', p: 'ilford' }, { d: 0, t: '18:00', p: 'southend' },
+  { d: 0, t: '07:30', p: 'ilford' }, { d: 0, t: '09:45', p: 'wc' }, { d: 0, t: '13:00', p: 'ilford' }, { d: 0, t: '18:00', p: 'southend' },
   { d: 2, t: '19:00', p: 'wc' },
   { d: 3, t: '19:00', p: 'ilford' }, { d: 4, t: '19:00', p: 'ilford' }, { d: 5, t: '19:00', p: 'ilford' },
   { d: 6, t: '18:30', p: 'ilford' }
 ];
 const DAYS_PL = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
 const DAYS_SHORT = ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'];
+const DAYS_EN = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 const mapsLink = p => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(PLACES[p].q);
 
 /* ---------- CZAS LONDYŃSKI ---------- */
@@ -108,7 +109,6 @@ function renderNext() {
   $('#nmTime').textContent = x.t.replace(/^0/, '');
   $('#nmWhen').textContent = whenText(x);
   $('#nmPlace').textContent = `${p.city} · ${p.church}`;
-  $('#nmLink').href = mapsLink(x.p);
   $('#nmLabel').textContent = x.diff <= 0 ? 'Msza trwa' : 'Najbliższa Msza święta';
 }
 renderNext(); setInterval(renderNext, 30000);
@@ -120,7 +120,7 @@ $('#massCount').dataset.count = MASSES.length;
   const n = londonNow(), order = [1, 2, 3, 4, 5, 6, 0];
   box.innerHTML = order.map(d => {
     const has = MASSES.some(m => m.d === d);
-    return `<button class="day${has ? ' has' : ''}${d === n.wd ? ' today' : ''}" data-d="${d}" role="tab"><small>${DAYS_SHORT[d]}</small><b>${DAYS_PL[d].slice(0, 3)}</b><i class="dot"></i></button>`;
+    return `<button class="day${has ? ' has' : ''}${d === n.wd ? ' today' : ''}" data-d="${d}" role="tab"><small>${DAYS_EN[d]}</small><b>${DAYS_PL[d]}</b><i class="dot"></i></button>`;
   }).join('');
   function ics(m) {
     const now = londonNow(); let off = (m.d - now.wd + 7) % 7;
@@ -204,9 +204,23 @@ $('#massCount').dataset.count = MASSES.length;
       ${meta ? `<div class="nmeta">${meta}</div>` : ''}
       ${e.autor ? `<p class="nsign">— ${esc(e.autor)}</p>` : ''}</div></article>`;
   }
+  function dateText(e) {
+    if (!e.dataOd) return '';
+    const f = parts(e.dataOd); if (!e.dataDo || e.dataDo === e.dataOd) return `${f.d} ${f.m}`;
+    const z = parts(e.dataDo); return f.m === z.m ? `${f.d}–${z.d} ${f.m}` : `${f.d} ${f.m} – ${z.d} ${z.m}`;
+  }
+  // mały box w hero: pierwszy wpis z listy (najbliższy w czasie)
+  function heroNews(e) {
+    const hb = $('#hnBody'); if (!hb) return;
+    if (!e) { hb.innerHTML = '<p class="hn-text">Brak bieżących ogłoszeń. Zajrzyj na Facebooka parafii.</p>'; return; }
+    const t = e.typ === 'Wydarzenie' ? '' : e.typ === 'Ogłoszenie' ? ' t-og' : ' t-in';
+    const when = [dateText(e), e.godzina, e.miejsce].filter(Boolean).map(esc).join(' · ');
+    hb.innerHTML = `<div class="hn-top"><span class="nchip${t}">${esc(e.typ || 'Informacja')}</span>${rel(e)}</div><h3>${esc(e.tytul)}</h3>${when ? `<p class="hn-text">${when}</p>` : ''}`;
+  }
   function render(list) {
     const vis = list.filter(e => e.tytul && toDay(e.widocznyDo || e.dataDo || e.dataOd || '2999-12-31') >= today)
       .sort((a, b) => (a.dataOd || '9999').localeCompare(b.dataOd || '9999'));
+    heroNews(vis[0]);
     if (!vis.length) { box.innerHTML = '<div class="empty"><b>Brak aktualnych ogłoszeń</b>Zajrzyj na nasz profil na Facebooku albo wróć po niedzielnej Mszy.</div>'; return; }
     const groups = [
       ['W tym tygodniu', vis.filter(e => e.dataOd && toDay(e.dataOd) <= weekEnd)],
@@ -218,7 +232,7 @@ $('#massCount').dataset.count = MASSES.length;
   }
   box.addEventListener('click', e => { const b = e.target.closest('.nmore'); if (!b) return; const p = b.previousElementSibling; const open = p.classList.toggle('clamp'); b.textContent = open ? 'Czytaj więcej' : 'Zwiń'; });
   fetch('data/aktualnosci.json', { cache: 'no-store' }).then(r => r.json()).then(d => render(d.wpisy || []))
-    .catch(() => { box.innerHTML = '<div class="empty"><b>Nie udało się wczytać aktualności</b>Odśwież stronę albo zajrzyj na nasz profil na Facebooku.</div>'; });
+    .catch(() => { heroNews(null); box.innerHTML = '<div class="empty"><b>Nie udało się wczytać aktualności</b>Odśwież stronę albo zajrzyj na nasz profil na Facebooku.</div>'; });
 })();
 
 /* ---------- SAKRAMENTY ---------- */
