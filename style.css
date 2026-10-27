@@ -120,7 +120,17 @@ h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,5.4vw,4.2rem)
 /* NEWS */
 .news{background:var(--paper)}
 .news-grid{display:grid;grid-template-columns:1fr 440px;gap:56px;align-items:start}
-.news-list{display:grid;gap:14px;margin-top:34px}
+.news-wrap{position:relative;margin-top:34px}
+.news-scroll{overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--gold) transparent;border-radius:6px}
+.news-scroll::-webkit-scrollbar{width:8px}
+.news-scroll::-webkit-scrollbar-thumb{background:var(--gold);border-radius:8px}
+.news-scroll:focus-visible{outline:2px solid var(--gold);outline-offset:6px}
+.news-wrap.scrolls .news-scroll{padding-right:12px}
+.news-wrap.scrolls::after{content:"";position:absolute;left:0;right:8px;bottom:0;height:64px;background:linear-gradient(transparent,var(--paper));pointer-events:none;transition:opacity .3s}
+.news-wrap.scrolls.at-end::after{opacity:0}
+.news-more{margin-top:10px;font-size:.84rem;font-weight:700;color:var(--golddk);text-align:center}
+.news-more[hidden]{display:none}
+.news-list{display:grid;gap:14px}
 .ngroup{display:flex;align-items:center;gap:14px;margin:14px 0 2px;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800;color:var(--muted)}
 .ngroup::after{content:"";flex:1;height:1px;background:var(--line)}
 .ntile{display:grid;grid-template-columns:84px 1fr;gap:20px;padding:22px;border-radius:24px;background:#fff;border:1px solid #ece5d4;transition:box-shadow .3s,transform .3s;animation:pop .6s var(--ease) backwards}
@@ -148,13 +158,21 @@ h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,5.4vw,4.2rem)
 .nmore{margin-top:6px;font-size:.84rem;font-weight:700;color:var(--golddk)}
 .news-fb{margin:30px 0 14px}
 .phone-col{justify-self:center;width:100%;max-width:420px;position:sticky;top:96px}
-.fb-note{margin-top:16px;text-align:center}
-.fb-note a{color:var(--golddk);font-weight:700}
+.phone-screen{border-radius:32px;overflow:hidden;background:#fff;position:relative}
+.fbcard{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:var(--navy);padding-bottom:30px}
+.fb-cover{width:100%;height:150px;background:linear-gradient(135deg,#4a74bd 0%,#6f93d3 55%,#9db8e6 100%)}
+.fb-cover svg{width:100%;height:100%;display:block}
+.fb-avatar{width:124px;height:124px;border-radius:26px;border:5px solid #fff;background:#fff;margin-top:-62px;position:relative;box-shadow:0 10px 24px -10px rgba(30,50,100,.5);transition:transform .5s var(--ease)}
+.fbcard:hover .fb-avatar{transform:scale(1.06) rotate(-2deg)}
+.fbcard h3{font-family:var(--serif);font-size:1.7rem;line-height:1.1;margin:16px 24px 8px;color:var(--navy)}
+.fb-meta{display:flex;align-items:center;gap:7px;font-size:.95rem;color:#4b5068}
+.fb-meta svg{width:18px;height:18px;fill:#6f7592}
+.fb-meta b{color:var(--navy)}
+.fb-follow{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:13px 30px;border-radius:99px;background:#1877f2;color:#fff;font-weight:700;font-size:1rem;box-shadow:0 14px 28px -12px rgba(24,119,242,.8);transition:transform .3s var(--ease),box-shadow .3s,background .3s}
+.fb-follow svg{width:22px;height:22px;fill:#fff}
+.fbcard:hover .fb-follow{transform:translateY(-3px);background:#0f65d8;box-shadow:0 20px 34px -12px rgba(24,119,242,.9)}
+.fb-text{margin:22px 30px 0;font-size:.98rem;color:#4b5068;line-height:1.55}
 .phone{width:100%;padding:12px;border-radius:44px;background:linear-gradient(160deg,#ecdfc3,#c9b283);box-shadow:0 40px 80px -36px rgba(80,58,10,.55),inset 0 0 0 1px rgba(255,255,255,.6)}
-.phone-screen{height:640px;border-radius:32px;overflow:hidden;background:#fff;position:relative}
-.phone-screen iframe{border:0;width:100%;height:100%;display:block}
-.fb-skel{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);background:linear-gradient(110deg,#f2f2f2 30%,#fafafa 50%,#f2f2f2 70%);background-size:200% 100%;animation:sh 1.4s infinite}
-@keyframes sh{to{background-position:-200% 0}}
 
 /* MASSES */
 .masses{background:var(--cream)}
@@ -332,7 +350,6 @@ h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,5.4vw,4.2rem)
 }
 @media (max-width:520px){
   .masonry{columns:2;column-gap:10px}.masonry button{margin-bottom:10px;border-radius:14px}
-  .phone-screen{height:560px}
   .hero-sub{font-size:1.02rem}
   .acc dl{grid-template-columns:1fr}
   .ntile{grid-template-columns:1fr;gap:12px}

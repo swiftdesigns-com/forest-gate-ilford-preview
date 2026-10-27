@@ -91,19 +91,28 @@
         <h2>Co u nas słychać</h2>
         <p class="lead">Ogłoszenia na ten tydzień i najbliższe wydarzenia. Wpisy znikają same, gdy minie ich termin.</p>
       </header>
-      <div class="news-list" id="newsList" aria-live="polite">
-        <div class="empty">Ładowanie aktualności…</div>
+      <div class="news-wrap" id="newsWrap">
+        <div class="news-scroll" id="newsScroll" tabindex="0" aria-label="Lista aktualności">
+          <div class="news-list" id="newsList" aria-live="polite">
+            <div class="empty">Ładowanie aktualności…</div>
+          </div>
+        </div>
+        <p class="news-more" id="newsMore" hidden>Przewiń w dół, aby zobaczyć kolejne wpisy</p>
       </div>
       <a class="btn btn-gold news-fb" href="https://www.facebook.com/PMKForesrgateIlfordWalthamCross" target="_blank" rel="noopener">Otwórz profil na Facebooku</a>
       <p class="small muted">Nie masz Facebooka? Ogłoszenia czytamy też podczas każdej niedzielnej Mszy.</p>
     </div>
     <div class="phone-col reveal" style="--d:.15s">
       <div class="phone">
-        <div class="phone-screen" id="fbBox">
-          <div class="fb-skel">Ładowanie postów…</div>
-        </div>
+        <a class="phone-screen fbcard" href="https://www.facebook.com/PMKForesrgateIlfordWalthamCross" target="_blank" rel="noopener" aria-label="Otwórz profil parafii na Facebooku">
+          <div class="fb-cover" aria-hidden="true"><svg viewBox="0 0 400 150" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="1.2"><circle cx="340" cy="30" r="90"/><circle cx="340" cy="30" r="62"/><circle cx="340" cy="30" r="34"/><circle cx="50" cy="150" r="70"/><circle cx="50" cy="150" r="42"/></g></svg></div>
+          <img class="fb-avatar" src="assets/fb-logo.webp" alt="Logo Polskiej Misji Katolickiej Forest Gate/Ilford" width="120" height="120">
+          <h3>Parafia Forest Gate/Ilford oraz Waltham Cross</h3>
+          <p class="fb-meta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-3.3 0-8 1.7-8 5v1h16v-1c0-3.3-4.7-5-8-5z"/></svg><b>2,5 tys.</b> obserwujących</p>
+          <span class="fb-follow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>Follow Page</span>
+          <p class="fb-text">Po więcej informacji zapraszamy na nasz Facebook. Znajdziesz tam bieżące ogłoszenia i zdjęcia z wydarzeń.</p>
+        </a>
       </div>
-      <p class="fb-note small muted">Nie widzisz postów? Facebook czasem ukrywa je przed gośćmi z blokadą śledzenia. <a href="https://www.facebook.com/PMKForesrgateIlfordWalthamCross" target="_blank" rel="noopener">Otwórz profil na Facebooku →</a></p>
     </div>
   </div>
 </section>

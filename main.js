@@ -217,6 +217,25 @@ $('#massCount').dataset.count = MASSES.length;
     const when = [dateText(e), e.godzina, e.miejsce].filter(Boolean).map(esc).join(' · ');
     hb.innerHTML = `<div class="hn-top"><span class="nchip${t}">${esc(e.typ || 'Informacja')}</span>${rel(e)}</div><h3>${esc(e.tytul)}</h3>${when ? `<p class="hn-text">${when}</p>` : ''}`;
   }
+  // Maksymalnie 5 kafelków widocznych naraz; reszta przewija się wewnątrz sekcji
+  const LIMIT = 5, wrap = $('#newsWrap'), sc = $('#newsScroll'), more = $('#newsMore');
+  function limitHeight() {
+    const t = $$('.ntile', box)[LIMIT - 1];
+    sc.style.maxHeight = (t.offsetTop + t.offsetHeight + 4) + 'px';
+  }
+  function fit() {
+    const tiles = $$('.ntile', box);
+    sc.style.maxHeight = '';
+    wrap.classList.remove('scrolls', 'at-end'); more.hidden = true;
+    if (tiles.length <= LIMIT) return;
+    limitHeight();
+    wrap.classList.add('scrolls');
+    more.textContent = `Przewiń w dół, aby zobaczyć kolejne wpisy (jeszcze ${tiles.length - LIMIT})`; more.hidden = false;
+    edge();
+  }
+  function edge() { wrap.classList.toggle('at-end', sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 4); }
+  sc.addEventListener('scroll', edge, { passive: true });
+  let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(fit, 150); });
   function render(list) {
     const vis = list.filter(e => e.tytul && toDay(e.widocznyDo || e.dataDo || e.dataOd || '2999-12-31') >= today)
       .sort((a, b) => (a.dataOd || '9999').localeCompare(b.dataOd || '9999'));
@@ -229,8 +248,9 @@ $('#massCount').dataset.count = MASSES.length;
     ].filter(g => g[1].length);
     let i = 0;
     box.innerHTML = groups.map(([name, items]) => `<div class="ngroup">${name}</div>${items.map(e => tile(e, i++)).join('')}`).join('');
+    fit();
   }
-  box.addEventListener('click', e => { const b = e.target.closest('.nmore'); if (!b) return; const p = b.previousElementSibling; const open = p.classList.toggle('clamp'); b.textContent = open ? 'Czytaj więcej' : 'Zwiń'; });
+  box.addEventListener('click', e => { const b = e.target.closest('.nmore'); if (!b) return; const p = b.previousElementSibling; const open = p.classList.toggle('clamp'); b.textContent = open ? 'Czytaj więcej' : 'Zwiń'; if (wrap.classList.contains('scrolls')) { sc.style.maxHeight = ''; requestAnimationFrame(() => { limitHeight(); edge(); }); } });
   fetch('data/aktualnosci.json', { cache: 'no-store' }).then(r => r.json()).then(d => render(d.wpisy || []))
     .catch(() => { heroNews(null); box.innerHTML = '<div class="empty"><b>Nie udało się wczytać aktualności</b>Odśwież stronę albo zajrzyj na nasz profil na Facebooku.</div>'; });
 })();
@@ -269,20 +289,6 @@ const GALLERY = ['p320', 'p317', 'p277', 'p313', 'p311', 'p318', 'p316', 'p305',
   addEventListener('keydown', e => { if (lb.hidden) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') open(cur - 1); if (e.key === 'ArrowRight') open(cur + 1); });
   let sx = 0; lb.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
   lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) open(cur + (dx < 0 ? 1 : -1)); });
-})();
-
-/* ---------- FACEBOOK (wtyczka strony, ładowana dopiero przy przewinięciu) ---------- */
-(function facebook() {
-  const box = $('#fbBox'); if (!box) return;
-  const load = () => {
-    const w = Math.min(500, Math.max(280, Math.floor(box.clientWidth)));
-    const f = document.createElement('iframe');
-    f.title = 'Posty z Facebooka parafii'; f.loading = 'lazy'; f.allow = 'encrypted-media';
-    f.src = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent('https://www.facebook.com/PMKForesrgateIlfordWalthamCross')}&tabs=timeline&width=${w}&height=${box.clientHeight}&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`;
-    f.onload = () => $('.fb-skel', box)?.remove();
-    box.appendChild(f);
-  };
-  new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '300px' }).observe(box);
 })();
 
 /* ---------- MAPA ---------- */
