@@ -57,26 +57,26 @@ function whenText(x) {
   let h = `<defs>
     <radialGradient id="rg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff6d6"/><stop offset="1" stop-color="#e0b96e"/></radialGradient>
     <filter id="soft"><feGaussianBlur stdDeviation=".35"/></filter></defs>`;
-  h += `<circle r="97" fill="#0b1236" stroke="#e0b96e" stroke-width="1.2"/><circle r="93" fill="none" stroke="#e0b96e" stroke-opacity=".5" stroke-width=".4"/>`;
+  h += `<circle r="97" fill="#fff8e6" stroke="#a97b1f" stroke-width="1.4"/><circle r="93" fill="none" stroke="#a97b1f" stroke-opacity=".55" stroke-width=".4"/>`;
   // zewnętrzny pierścień: 24 małe okienka
   for (let i = 0; i < 24; i++) {
-    h += `<g transform="rotate(${i * 15})"><path d="M0,-91 C4.5,-88 4.5,-80 0,-77 C-4.5,-80 -4.5,-88 0,-91Z" fill="${C[i % 6]}" fill-opacity=".72" stroke="#e0b96e" stroke-width=".5"/></g>`;
+    h += `<g transform="rotate(${i * 15})"><path d="M0,-91 C4.5,-88 4.5,-80 0,-77 C-4.5,-80 -4.5,-88 0,-91Z" fill="${C[i % 6]}" fill-opacity=".88" stroke="#8a6720" stroke-width=".5"/></g>`;
   }
   // 12 dużych lancetów
   for (let i = 0; i < 12; i++) {
     h += `<g transform="rotate(${i * 30})">
-      <path d="M0,-30 C15,-42 15,-64 0,-74 C-15,-64 -15,-42 0,-30Z" fill="${C[i % 6]}" fill-opacity=".58" stroke="#e0b96e" stroke-width=".7"/>
-      <path d="M0,-36 C8,-44 8,-60 0,-67 C-8,-60 -8,-44 0,-36Z" fill="${C[(i + 3) % 6]}" fill-opacity=".5"/>
+      <path d="M0,-30 C15,-42 15,-64 0,-74 C-15,-64 -15,-42 0,-30Z" fill="${C[i % 6]}" fill-opacity=".84" stroke="#8a6720" stroke-width=".8"/>
+      <path d="M0,-36 C8,-44 8,-60 0,-67 C-8,-60 -8,-44 0,-36Z" fill="${C[(i + 3) % 6]}" fill-opacity=".6"/>
       <path d="M0,-58 L2.2,-54 L0,-50 L-2.2,-54Z" fill="#fff6d6" fill-opacity=".8"/></g>`;
   }
   // wewnętrzne płatki
   for (let i = 0; i < 8; i++) {
-    h += `<g transform="rotate(${i * 45 + 22.5})"><path d="M0,-10 C8,-16 8,-26 0,-30 C-8,-26 -8,-16 0,-10Z" fill="${C[(i + 1) % 6]}" fill-opacity=".7" stroke="#e0b96e" stroke-width=".5"/></g>`;
+    h += `<g transform="rotate(${i * 45 + 22.5})"><path d="M0,-10 C8,-16 8,-26 0,-30 C-8,-26 -8,-16 0,-10Z" fill="${C[(i + 1) % 6]}" fill-opacity=".88" stroke="#8a6720" stroke-width=".5"/></g>`;
   }
-  h += `<circle r="12" fill="#0b1236" stroke="#e0b96e" stroke-width=".8"/><circle r="8.5" fill="url(#rg)"/>
+  h += `<circle r="12" fill="#fff8e6" stroke="#8a6720" stroke-width=".9"/><circle r="8.5" fill="url(#rg)"/>
     <path d="M0-6V6M-6 0H6" stroke="#7a5a1a" stroke-width="1.6" stroke-linecap="round"/>`;
   // szprychy
-  for (let i = 0; i < 12; i++) h += `<line x1="0" y1="-12" x2="0" y2="-93" transform="rotate(${i * 30 + 15})" stroke="#e0b96e" stroke-opacity=".35" stroke-width=".4"/>`;
+  for (let i = 0; i < 12; i++) h += `<line x1="0" y1="-12" x2="0" y2="-93" transform="rotate(${i * 30 + 15})" stroke="#8a6720" stroke-opacity=".4" stroke-width=".4"/>`;
   svg.innerHTML = h;
 })();
 
@@ -149,6 +149,76 @@ $('#massCount').dataset.count = MASSES.length;
   box.addEventListener('click', e => { const b = e.target.closest('.day'); if (b) show(+b.dataset.d); });
   panel.addEventListener('click', e => { const b = e.target.closest('[data-ics]'); if (b) ics(MASSES[+b.dataset.ics]); });
   show(n.wd);
+})();
+
+
+/* ---------- MSZE: PRZEŁĄCZNIK KALENDARZ / WSPÓLNOTY ---------- */
+(function views() {
+  const seg = $('#viewSeg'), cal = $('#viewCal'), pl = $('#viewPlaces'), cols = $('#pcols'); if (!seg) return;
+  const order = [1, 2, 3, 4, 5, 6, 0], today = londonNow().wd;
+  cols.innerHTML = Object.entries(PLACES).map(([k, p], i) => {
+    const rows = order.map(d => {
+      const t = MASSES.filter(m => m.d === d && m.p === k).map(m => m.t.replace(/^0/, '')).sort();
+      return t.length ? `<li class="${d === today ? 'today' : ''}"><span class="dn">${DAYS_PL[d]}</span><span class="tm">${t.join(' · ')}</span></li>` : '';
+    }).join('');
+    return `<article class="pcol" style="animation-delay:${i * 90}ms"><h3>${p.city}</h3><p class="church">${p.church}</p><p class="addr">${p.addr}</p><ul class="sched">${rows}</ul><a class="chip" href="${mapsLink(k)}" target="_blank" rel="noopener">Nawiguj</a></article>`;
+  }).join('');
+  seg.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    $$('button', seg).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
+    const v = b.dataset.view; cal.hidden = v !== 'cal'; pl.hidden = v !== 'places';
+  });
+})();
+
+/* ---------- AKTUALNOŚCI (data/aktualnosci.json) ---------- */
+(function news() {
+  const box = $('#newsList'); if (!box) return;
+  const MON = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const toDay = s => { const [y, m, d] = s.split('-').map(Number); return Date.UTC(y, m - 1, d) / 864e5; };
+  const n = londonNow(), today = Date.UTC(n.y, n.m - 1, n.d) / 864e5;
+  const weekEnd = today + ((7 - n.wd) % 7); // najbliższa niedziela
+  const parts = s => { const [y, m, d] = s.split('-').map(Number); return { d, m: MON[m - 1] }; };
+  function dateBlock(e) {
+    if (!e.dataOd) return '<div class="nd nodate" aria-hidden="true">✦</div>';
+    const a = parts(e.dataOd);
+    if (!e.dataDo || e.dataDo === e.dataOd) return `<div class="nd"><b>${a.d}</b><span>${a.m}</span></div>`;
+    const z = parts(e.dataDo);
+    return a.m === z.m ? `<div class="nd"><b class="rng">${a.d}–${z.d}</b><span>${a.m}</span></div>` : `<div class="nd"><b class="rng">${a.d} ${a.m}</b><span>– ${z.d} ${z.m}</span></div>`;
+  }
+  function rel(e) {
+    if (!e.dataOd) return '';
+    const from = toDay(e.dataOd), to = toDay(e.dataDo || e.dataOd);
+    if (today >= from && today <= to) return from === to ? '<span class="nrel now">Dziś</span>' : '<span class="nrel now">Trwa teraz</span>';
+    const k = from - today; if (k === 1) return '<span class="nrel">Jutro</span>';
+    return k > 1 && k <= 14 ? `<span class="nrel">Za ${k} dni</span>` : '';
+  }
+  function tile(e, i) {
+    const t = e.typ === 'Wydarzenie' ? '' : e.typ === 'Ogłoszenie' ? ' t-og' : ' t-in';
+    const meta = [e.godzina && `🕐 ${esc(e.godzina)}`, e.miejsce && `📍 ${esc(e.miejsce)}`].filter(Boolean).map(x => `<span>${x}</span>`).join('');
+    const long = (e.tekst || '').length > 220;
+    return `<article class="ntile" style="animation-delay:${i * 80}ms">${dateBlock(e)}<div class="nbody">
+      <div class="ntop"><span class="nchip${t}">${esc(e.typ || 'Informacja')}</span>${rel(e)}</div>
+      <h3>${esc(e.tytul)}</h3>
+      <p class="${long ? 'clamp' : ''}">${esc(e.tekst)}</p>${long ? '<button class="nmore">Czytaj więcej</button>' : ''}
+      ${meta ? `<div class="nmeta">${meta}</div>` : ''}
+      ${e.autor ? `<p class="nsign">— ${esc(e.autor)}</p>` : ''}</div></article>`;
+  }
+  function render(list) {
+    const vis = list.filter(e => e.tytul && toDay(e.widocznyDo || e.dataDo || e.dataOd || '2999-12-31') >= today)
+      .sort((a, b) => (a.dataOd || '9999').localeCompare(b.dataOd || '9999'));
+    if (!vis.length) { box.innerHTML = '<div class="empty"><b>Brak aktualnych ogłoszeń</b>Zajrzyj na nasz profil na Facebooku albo wróć po niedzielnej Mszy.</div>'; return; }
+    const groups = [
+      ['W tym tygodniu', vis.filter(e => e.dataOd && toDay(e.dataOd) <= weekEnd)],
+      ['Wkrótce', vis.filter(e => e.dataOd && toDay(e.dataOd) > weekEnd)],
+      ['Ogłoszenia', vis.filter(e => !e.dataOd)]
+    ].filter(g => g[1].length);
+    let i = 0;
+    box.innerHTML = groups.map(([name, items]) => `<div class="ngroup">${name}</div>${items.map(e => tile(e, i++)).join('')}`).join('');
+  }
+  box.addEventListener('click', e => { const b = e.target.closest('.nmore'); if (!b) return; const p = b.previousElementSibling; const open = p.classList.toggle('clamp'); b.textContent = open ? 'Czytaj więcej' : 'Zwiń'; });
+  fetch('data/aktualnosci.json', { cache: 'no-store' }).then(r => r.json()).then(d => render(d.wpisy || []))
+    .catch(() => { box.innerHTML = '<div class="empty"><b>Nie udało się wczytać aktualności</b>Odśwież stronę albo zajrzyj na nasz profil na Facebooku.</div>'; });
 })();
 
 /* ---------- SAKRAMENTY ---------- */
@@ -235,14 +305,6 @@ const cio = new IntersectionObserver(es => es.forEach(e => {
 }), { threshold: .6 });
 $$('[data-count]').forEach(el => cio.observe(el));
 
-// manifest: słowa zapalają się wraz z przewijaniem
-const scrub = $('#scrub');
-if (scrub) {
-  const words = scrub.textContent.trim().split(/\s+/);
-  scrub.innerHTML = words.map((w, i) => `<span${/^(żywy|barwny|organizm|Przyjdź|Zostań)/i.test(w) ? ' data-g' : ''}>${w}</span>`).join(' ');
-}
-const spans = $$('#scrub span');
-
 // pasek postępu, nav, paralaksa, słowa
 let ticking = false;
 const parallax = $$('[data-speed]');
@@ -252,11 +314,6 @@ function onScroll() {
   $('#nav').classList.toggle('solid', y > 60);
   if (!reduce) {
     parallax.forEach(im => { const r = im.parentElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; im.style.transform = `translateY(${(r.top + r.height / 2 - innerHeight / 2) * -+im.dataset.speed}px)`; });
-  }
-  if (scrub) {
-    const r = scrub.getBoundingClientRect(), p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .35)));
-    const n = Math.floor(p * spans.length * 1.05);
-    spans.forEach((s, i) => { const on = i < n; s.classList.toggle('lit', on); s.classList.toggle('gold', on && s.hasAttribute('data-g')); });
   }
   ticking = false;
 }

@@ -1,0 +1,37 @@
+{
+  "_jak_dodawac": "Każdy wpis to jeden kafelek. Pola: id (unikalne), typ (Ogłoszenie / Wydarzenie / Informacja), tytul, dataOd (RRRR-MM-DD, puste = ogłoszenie bez daty), dataDo (opcjonalnie, koniec zakresu), godzina (opcjonalnie), miejsce (opcjonalnie), tekst (krótka treść), autor (podpis), widocznyDo (RRRR-MM-DD: po tej dacie wpis znika ze strony; puste = znika po dataDo/dataOd).",
+  "wpisy": [
+    {
+      "id": "tydzien-2026-10-26",
+      "typ": "Ogłoszenie",
+      "tytul": "Msze święte w tym tygodniu",
+      "dataOd": "2026-10-26",
+      "dataDo": "2026-11-01",
+      "tekst": "Wtorek 19:00 Waltham Cross. Środa, czwartek i piątek 19:00 Ilford. Sobota 18:30 Ilford. Niedziela: 9:45 Waltham Cross, 13:00 Ilford, 18:00 Southend. Spowiedź pół godziny przed każdą Mszą.",
+      "autor": "Duszpasterze",
+      "widocznyDo": "2026-11-01",
+      "przyklad": true
+    },
+    {
+      "id": "bal-wszystkich-swietych-2026",
+      "typ": "Wydarzenie",
+      "tytul": "Bal Wszystkich Świętych",
+      "dataOd": "2026-10-31",
+      "miejsce": "Ilford",
+      "tekst": "Zapraszamy dzieci i rodziców na wspólną zabawę. Przebrania za świętych mile widziane. Szczegóły i godzinę podamy na Mszach i na naszym profilu na Facebooku.",
+      "autor": "Duszpasterze",
+      "widocznyDo": "2026-10-31",
+      "przyklad": true
+    },
+    {
+      "id": "zaduszki-2026",
+      "typ": "Informacja",
+      "tytul": "Wspomnienie Wszystkich Wiernych Zmarłych",
+      "dataOd": "2026-11-02",
+      "tekst": "Modlimy się za naszych bliskich zmarłych. Intencje można zgłaszać u duszpasterzy. Godziny Mszy w tym dniu podamy w ogłoszeniach.",
+      "autor": "Duszpasterze",
+      "widocznyDo": "2026-11-02",
+      "przyklad": true
+    }
+  ]
+}
