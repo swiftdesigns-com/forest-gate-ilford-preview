@@ -1,5 +1,5 @@
 {
-  "_jak_dodawac": "Każdy wpis to jeden kafelek. Pola: id (unikalne), typ (Ogłoszenie / Wydarzenie / Informacja), tytul, dataOd (RRRR-MM-DD, puste = ogłoszenie bez daty), dataDo (opcjonalnie, koniec zakresu), godzina (opcjonalnie), miejsce (opcjonalnie), tekst (krótka treść), autor (podpis), widocznyDo (RRRR-MM-DD: po tej dacie wpis znika ze strony; puste = znika po dataDo/dataOd).",
+  "_jak_dodawac": "Każdy wpis to jeden kafelek. Pola: id (unikalne), typ (Ogłoszenie / Wydarzenie / Informacja), tytul, dataOd (RRRR-MM-DD, puste = ogłoszenie bez daty), dataDo (opcjonalnie, koniec zakresu), godzina (opcjonalnie), miejsce (opcjonalnie), tekst (krótka treść), autor (podpis), widocznyDo (RRRR-MM-DD: po tej dacie wpis znika ze strony; puste = znika po dataDo/dataOd). Opcjonalnie wyroznij: true wyróżnia kafelek złotą ramką.",
   "wpisy": [
     {
       "id": "tydzien-2026-10-26",
@@ -17,11 +17,12 @@
       "typ": "Wydarzenie",
       "tytul": "Bal Wszystkich Świętych",
       "dataOd": "2026-10-31",
-      "miejsce": "Ilford",
-      "tekst": "Zapraszamy dzieci i rodziców na wspólną zabawę. Przebrania za świętych mile widziane. Szczegóły i godzinę podamy na Mszach i na naszym profilu na Facebooku.",
-      "autor": "Duszpasterze",
+      "miejsce": "Dom Parafialny, 2 Ashgrove Road",
+      "tekst": "Zapraszamy wszystkie dzieci w wieku od 2 do 12 lat wraz z rodzicami na Bal Wszystkich Świętych. Będzie poczęstunek i wspólne zabawy dla dzieci.",
+      "autor": "Ksiądz Sławomir",
       "widocznyDo": "2026-10-31",
-      "przyklad": true
+      "przyklad": true,
+      "wyroznij": true
     },
     {
       "id": "zaduszki-2026",

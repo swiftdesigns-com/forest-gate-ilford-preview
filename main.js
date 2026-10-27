@@ -158,10 +158,10 @@ $('#massCount').dataset.count = MASSES.length;
   const order = [1, 2, 3, 4, 5, 6, 0], today = londonNow().wd;
   cols.innerHTML = Object.entries(PLACES).map(([k, p], i) => {
     const rows = order.map(d => {
-      const t = MASSES.filter(m => m.d === d && m.p === k).map(m => m.t.replace(/^0/, '')).sort();
-      return t.length ? `<li class="${d === today ? 'today' : ''}"><span class="dn">${DAYS_PL[d]}</span><span class="tm">${t.join(' · ')}</span></li>` : '';
+      const t = MASSES.filter(m => m.d === d && m.p === k).map(m => m.t).sort().map(x => x.replace(/^0/, ''));
+      return `<li class="${d === today ? 'today' : ''}${t.length ? '' : ' off'}"><span class="dn">${DAYS_PL[d]}</span><span class="tm">${t.length ? t.join(' · ') : '—'}</span></li>`;
     }).join('');
-    return `<article class="pcol" style="animation-delay:${i * 90}ms"><h3>${p.city}</h3><p class="church">${p.church}</p><p class="addr">${p.addr}</p><ul class="sched">${rows}</ul><a class="chip" href="${mapsLink(k)}" target="_blank" rel="noopener">Nawiguj</a></article>`;
+    return `<article class="pcol" style="animation-delay:${i * 90}ms"><div class="pcol-head"><h3>${p.city}</h3><p class="church">${p.church}</p><p class="addr">${p.addr}</p></div><ul class="sched">${rows}</ul><a class="chip" href="${mapsLink(k)}" target="_blank" rel="noopener">Nawiguj</a></article>`;
   }).join('');
   seg.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
@@ -197,7 +197,7 @@ $('#massCount').dataset.count = MASSES.length;
     const t = e.typ === 'Wydarzenie' ? '' : e.typ === 'Ogłoszenie' ? ' t-og' : ' t-in';
     const meta = [e.godzina && `🕐 ${esc(e.godzina)}`, e.miejsce && `📍 ${esc(e.miejsce)}`].filter(Boolean).map(x => `<span>${x}</span>`).join('');
     const long = (e.tekst || '').length > 220;
-    return `<article class="ntile" style="animation-delay:${i * 80}ms">${dateBlock(e)}<div class="nbody">
+    return `<article class="ntile${e.wyroznij ? ' featured' : ''}" style="animation-delay:${i * 80}ms">${dateBlock(e)}<div class="nbody">
       <div class="ntop"><span class="nchip${t}">${esc(e.typ || 'Informacja')}</span>${rel(e)}</div>
       <h3>${esc(e.tytul)}</h3>
       <p class="${long ? 'clamp' : ''}">${esc(e.tekst)}</p>${long ? '<button class="nmore">Czytaj więcej</button>' : ''}
